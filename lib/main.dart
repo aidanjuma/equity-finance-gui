@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:equity/src/ui/views/root_view.dart';
 import 'package:equity/src/models/settings.dart';
+import 'package:equity/src/ui/theme/global.dart';
 
 void main() async {
   _startHive();
@@ -13,8 +14,13 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: RootView(),
+    return MaterialApp(
+      theme: Themes.light,
+      darkTheme: Themes.dark,
+      // TODO: System / Update Preferred.
+      themeMode: ThemeMode.dark,
+      home: const RootView(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
