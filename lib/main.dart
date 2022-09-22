@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:equity/src/ui/views/root_view.dart';
+// Local
 import 'package:equity/src/models/settings.dart';
 import 'package:equity/src/ui/theme/global.dart';
+import 'package:equity/src/ui/views/root_view.dart';
 
 void main() async {
   _startHive();
