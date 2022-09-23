@@ -22,7 +22,7 @@ class ThemeColorIndicator extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: colorMode == Appearance.dark
-              ? const Color(0xff1c2128)
+              ? const Color(0xff10141a)
               : const Color(0xffffffff),
           borderRadius: BorderRadius.circular(9999),
         ),

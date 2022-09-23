@@ -11,14 +11,10 @@ class SettingsView extends StatelessWidget {
     final ColorScheme colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: const Text('Settings'),
-        titleTextStyle: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+          title: Container(
+        padding: const EdgeInsets.only(left: 12),
+        child: const Text('Settings'),
+      )),
       body: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 12,
@@ -31,7 +27,7 @@ class SettingsView extends StatelessWidget {
               children: <Widget>[
                 /* Left-Aligned Subtitle for Theme */
                 Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.center,
                   child: Container(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: Text(
