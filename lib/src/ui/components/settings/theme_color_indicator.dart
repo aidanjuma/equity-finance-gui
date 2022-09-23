@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 // Local
+import 'package:equity/src/models/settings.dart';
 import 'package:equity/src/types/appearance.dart';
 
 class ThemeColorIndicator extends StatelessWidget {
@@ -16,17 +18,29 @@ class ThemeColorIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: colorMode == Appearance.dark
-              ? const Color(0xff10141a)
-              : const Color(0xffffffff),
-          borderRadius: BorderRadius.circular(9999),
+    return GestureDetector(
+      onTap: () => _handleThemeUpdate(colorMode),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: colorMode == Appearance.dark
+                ? const Color(0xff10141a)
+                : const Color(0xffffffff),
+            borderRadius: BorderRadius.circular(9999),
+          ),
         ),
       ),
     );
+  }
+
+  /* Get settings from box, change theme, replace settings object. */
+  void _handleThemeUpdate(Appearance theme) {
+    Box<Settings> settingsBox = Hive.box<Settings>('Settings');
+    Settings storedSettings =
+        Hive.box<Settings>('Settings').get('storedSettings')!;
+    storedSettings.theme = theme;
+    settingsBox.put(storedSettings.key, storedSettings);
   }
 }

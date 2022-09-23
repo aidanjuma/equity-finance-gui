@@ -25,14 +25,18 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Appearance storedTheme =
-        Hive.box<Settings>('Settings').get('storedSettings')!.theme;
-    return MaterialApp(
-      theme: Themes.light,
-      darkTheme: Themes.dark,
-      themeMode: _setThemeMode(storedTheme) ?? ThemeMode.dark,
-      home: const RootView(),
-      debugShowCheckedModeBanner: false,
+    return ValueListenableBuilder(
+      valueListenable: Hive.box<Settings>('Settings').listenable(),
+      builder: (BuildContext context, Box<Settings> settings, Widget? child) {
+        return MaterialApp(
+          theme: Themes.light,
+          darkTheme: Themes.dark,
+          themeMode: _setThemeMode(settings.get('storedSettings')!.theme) ??
+              ThemeMode.system,
+          home: const RootView(),
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }
