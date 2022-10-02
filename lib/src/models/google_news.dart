@@ -8,10 +8,11 @@ class GoogleNews extends News {
   // The URL for the thumbnail...
   final String thumbnailUrl;
 
-  GoogleNews(
-      {required super.link,
-      required super.sourceName,
-      required super.title,
-      required this.thumbnailUrl,
-      required this.whenPublished});
+  GoogleNews({
+    required super.link,
+    required super.sourceName,
+    required super.title,
+    required this.thumbnailUrl,
+    required this.whenPublished,
+  });
 }

@@ -44,7 +44,6 @@ class EquityApiProvider {
     });
 
     CurrencyData currencyData = CurrencyData(
-      type: results['market_summary']['type'],
       baseCurrency: base,
       quoteCurrency: quote,
       price: results['price'],
