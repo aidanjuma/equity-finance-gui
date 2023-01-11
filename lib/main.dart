@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // Local
 import 'package:equity/src/models/settings.dart';
 import 'package:equity/src/types/appearance.dart';
 import 'package:equity/src/ui/theme/global.dart';
 import 'package:equity/src/ui/views/root_view.dart';
+import 'package:equity/src/providers/equity_api_provider.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -14,7 +16,7 @@ void main() async {
   // Opens box(es).
   await Hive.openBox<Settings>('Settings');
   // Configures settings; make sure defaults exist.
-  _configSettings();
+  await _configSettings();
   // Runs the app.
   const app = Application();
   runApp(app);
@@ -28,20 +30,23 @@ class Application extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: Hive.box<Settings>('Settings').listenable(),
       builder: (BuildContext context, Box<Settings> settings, Widget? child) {
-        return MaterialApp(
-          theme: Themes.light,
-          darkTheme: Themes.dark,
-          themeMode: _setThemeMode(settings.get('storedSettings')!.theme) ??
-              ThemeMode.system,
-          home: const RootView(),
-          debugShowCheckedModeBanner: false,
+        return ChangeNotifierProvider(
+          create: (context) => EquityApiProvider(),
+          child: MaterialApp(
+            theme: Themes.light,
+            darkTheme: Themes.dark,
+            themeMode: _setThemeMode(settings.get('storedSettings')!.theme) ??
+                ThemeMode.system,
+            home: const RootView(),
+            debugShowCheckedModeBanner: false,
+          ),
         );
       },
     );
   }
 }
 
-void _configSettings() async {
+Future _configSettings() async {
   Box<Settings> settingsBox = Hive.box('Settings');
   Settings? storedSettings = settingsBox.get('storedSettings');
   // If storedSettings isn't found, ensure clear and generate defaults.

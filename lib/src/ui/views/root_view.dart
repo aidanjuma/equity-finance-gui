@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 // Local
-import 'main_view.dart';
-import 'settings_view.dart';
+import 'news_view.dart';
+import 'search_view.dart';
+import 'portfolio_view.dart';
 import 'package:equity/src/ui/components/navigation/navigation_bar.dart' as nav;
 
 class RootView extends StatefulWidget {
@@ -16,18 +17,21 @@ class _RootViewState extends State<RootView> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    const MainView(),
-    const SettingsView(),
+    const NewsView(),
+    const SearchView(),
+    const PortfolioView()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: nav.NavigationBar(
+        height: 100,
         iconSize: 28,
         items: <nav.NavigationBarItem>[
-          nav.NavigationBarItem(icon: EvaIcons.homeOutline),
-          nav.NavigationBarItem(icon: EvaIcons.settingsOutline),
+          nav.NavigationBarItem(icon: EvaIcons.bulbOutline),
+          nav.NavigationBarItem(icon: EvaIcons.searchOutline),
+          nav.NavigationBarItem(icon: EvaIcons.pieChartOutline),
         ],
         onChanged: (int index) {
           _currentIndex = index;
