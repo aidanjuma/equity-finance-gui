@@ -56,7 +56,7 @@ Future _configSettings() async {
   }
 }
 
-ThemeMode? _setThemeMode(Appearance storedTheme) {
+ThemeMode? _setThemeMode(Appearance? storedTheme) {
   Map<Appearance, ThemeMode> cases = {
     Appearance.light: ThemeMode.light,
     Appearance.dark: ThemeMode.dark,
