@@ -1,5 +1,5 @@
+import 'google_news_article.dart';
 import 'package:equity/src/types/currency.dart';
-import 'package:equity/src/models/google_news.dart';
 
 /* Class: CurrencyData from Google */
 class CurrencyData {
@@ -13,7 +13,7 @@ class CurrencyData {
   final double price;
 
   // List of related news articles.
-  final List<GoogleNews> news;
+  final List<GoogleNewsArticle> news;
 
   CurrencyData({
     required this.baseCurrency,

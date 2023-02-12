@@ -4,47 +4,47 @@ import 'dart:convert';
 import 'package:http/http.dart';
 // Local
 import 'package:equity/src/types/currency.dart';
-import 'package:equity/src/models/google_news.dart';
 import 'package:equity/src/models/currency_data.dart';
+import 'package:equity/src/models/market_stories.dart';
+import 'package:equity/src/models/google_news_article.dart';
 
 class EquityApiService {
   final Client _client = Client();
 
-  static const String _baseUrl =
-      'http://127.0.0.1:3000'; // localhost; adjust accordingly
+  static const String _baseUrl = 'http://192.168.1.225:3000';
   static const String _binanceEndpoint = '$_baseUrl/fiat/binance';
   static const String _googleFinanceEndpoint = '$_baseUrl/fiat/google';
 
   /* Google Finance */
+  Future<MarketStories> getGoogleMarketFinanceNews() async {
+    final Uri url = Uri.parse('$_googleFinanceEndpoint/news');
 
-  // Scrape News from Home.
-  Future<List<GoogleNews>> scrapeNewsFromGoogleFinance() async {
-    final Uri url = Uri.parse('$_baseUrl/news');
-
-    final List<dynamic> results = await _makeGetRequest(() async {
+    final Map<String, dynamic> data = await _makeGetRequest(() async {
       Response response = await _client.get(url);
-      final data = jsonDecode(response.body) as Map<String, dynamic>;
-      final List<dynamic> results = data['result'];
-      return results;
+      return jsonDecode(response.body) as Map<String, dynamic>;
     });
 
-    List<GoogleNews> articles = _parseNewsArticles(results);
+    MarketStories stories = MarketStories(
+      topStories: _parseNewsArticles(data["topStories"]),
+      localMarket: _parseNewsArticles(data["localMarket"]),
+      worldMarkets: _parseNewsArticles(data["worldMarkets"]),
+    );
 
-    return articles;
+    return stories;
   }
 
-  // Parse news from GFI into GoogleNews objects.
-  List<GoogleNews> _parseNewsArticles(List<dynamic> googleNews) {
+  // Parse news from GFI into GoogleNewsArticle objects.
+  List<GoogleNewsArticle> _parseNewsArticles(List<dynamic> googleNews) {
     // Add each news article to a list.
-    List<GoogleNews> news = [];
+    List<GoogleNewsArticle> news = [];
     for (int i = 0; i < googleNews.length; i++) {
       final item = googleNews[i];
-      final GoogleNews article = GoogleNews(
+      final GoogleNewsArticle article = GoogleNewsArticle(
         link: item['link'],
-        sourceName: item['source'],
+        publisher: item['publisher'],
         title: item['title'],
         thumbnailUrl: item['thumbnail'],
-        whenPublished: item['published'],
+        whenPublished: item['whenPublished'],
       );
 
       news.add(article);
