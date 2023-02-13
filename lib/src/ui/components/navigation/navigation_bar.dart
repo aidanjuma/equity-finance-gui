@@ -7,8 +7,8 @@ class NavigationBarItem {
 }
 
 class NavigationBar extends StatelessWidget {
-  final double height;
   final double width;
+  final double height;
   final double? iconSize;
   final List<NavigationBarItem> items;
   final ValueChanged<int> onChanged;

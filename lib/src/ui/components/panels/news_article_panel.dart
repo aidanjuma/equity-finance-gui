@@ -10,7 +10,6 @@ const TextStyle _boldStyle = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-// TODO: Complete this UI element.
 class NewsArticlePanel extends StatelessWidget {
   final String imageUrl;
   final String publisher;

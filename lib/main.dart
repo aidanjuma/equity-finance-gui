@@ -6,6 +6,7 @@ import 'package:equity/src/models/settings.dart';
 import 'package:equity/src/types/appearance.dart';
 import 'package:equity/src/ui/theme/global.dart';
 import 'package:equity/src/ui/views/root_view.dart';
+import 'package:equity/src/router/navigator_wrapper.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
 
 void main() async {
@@ -39,6 +40,8 @@ class Application extends StatelessWidget {
                 ThemeMode.system,
             home: const RootView(),
             debugShowCheckedModeBanner: false,
+            initialRoute: NavigatorWrapper.initialRoute,
+            routes: NavigatorWrapper.routes,
           ),
         );
       },
