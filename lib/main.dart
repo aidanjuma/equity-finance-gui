@@ -56,8 +56,8 @@ Future _configSettings() async {
   Settings? storedSettings = settingsBox.get('storedSettings');
   // If storedSettings isn't found, ensure clear and generate defaults.
   if (storedSettings == null) {
-    settingsBox.clear();
-    settingsBox.put('storedSettings', Settings());
+    await settingsBox.clear();
+    await settingsBox.put('storedSettings', Settings());
   }
 }
 

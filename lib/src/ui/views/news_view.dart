@@ -4,7 +4,13 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:equity/src/router/routes.dart';
 import 'package:equity/src/router/navigator_wrapper.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
+import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 import 'package:equity/src/ui/components/panels/news_article_panel.dart';
+
+const TextStyle _titleStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
 
 class NewsView extends StatefulWidget {
   const NewsView({super.key});
@@ -20,43 +26,39 @@ class _NewsViewState extends State<NewsView> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.2),
-        child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(
-            horizontal: width * 0.05,
-            vertical: height * 0.075,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Text(
-                'equity',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'DM Sans',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => NavigatorWrapper.push(context, Routes.settings),
-                child: const Icon(
-                  EvaIcons.settingsOutline,
-                  size: 28,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: Consumer<EquityApiProvider>(
-        builder: (context, provider, child) {
-          bool storiesAvailable =
-              provider.marketStories != null && !provider.isLoading;
+      appBar: customAppBar(context),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Consumer<EquityApiProvider>(
+          builder: (context, provider, child) {
+            bool storiesAvailable =
+                provider.marketStories != null && !provider.isLoading;
 
-          return Container();
-        },
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: width * 0.05),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Top Stories",
+                    style: _titleStyle,
+                  ),
+                  // <Scrollable Data>
+                  Text(
+                    "Local Market",
+                    style: _titleStyle,
+                  ),
+                  // <Scrollable Data>
+                  Text(
+                    "World Markets",
+                    style: _titleStyle,
+                  ),
+                  // <Scrollable Data>
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

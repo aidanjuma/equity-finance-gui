@@ -39,7 +39,7 @@ class Themes {
       error: errorColor,
       onError: pureWhite,
       background: fff6f8fa,
-      onBackground: ff24292f,
+      onBackground: ffd8dee4,
       surface: ff24292f,
       onSurface: ff52565a,
     ),
