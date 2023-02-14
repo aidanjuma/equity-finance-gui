@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 // Local
-import 'package:equity/src/types/currency.dart';
+import 'package:equity/src/enums/currency.dart';
 import 'package:equity/src/models/currency_data.dart';
 import 'package:equity/src/models/market_stories.dart';
 import 'package:equity/src/models/google_news_article.dart';

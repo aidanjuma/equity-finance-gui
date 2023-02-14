@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // Local
-import 'package:equity/src/types/appearance.dart';
+import 'package:equity/src/enums/appearance.dart';
 import 'package:equity/src/ui/components/settings/theme_color_indicator.dart';
 
 class SettingsView extends StatelessWidget {

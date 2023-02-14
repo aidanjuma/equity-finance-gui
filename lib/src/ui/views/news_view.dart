@@ -21,12 +21,12 @@ class _NewsViewState extends State<NewsView> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.15),
+        preferredSize: Size.fromHeight(height * 0.2),
         child: Container(
           width: double.infinity,
           margin: EdgeInsets.symmetric(
             horizontal: width * 0.05,
-            vertical: height * 0.05,
+            vertical: height * 0.075,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

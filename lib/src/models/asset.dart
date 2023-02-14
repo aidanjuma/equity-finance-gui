@@ -1,4 +1,4 @@
-import 'package:equity/src/types/asset_type.dart';
+import 'package:equity/src/enums/asset_type.dart';
 
 /* Base Class: Asset */
 class Asset {

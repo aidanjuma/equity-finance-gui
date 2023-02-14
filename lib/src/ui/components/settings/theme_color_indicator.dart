@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 // Local
 import 'package:equity/src/models/settings.dart';
-import 'package:equity/src/types/appearance.dart';
+import 'package:equity/src/enums/appearance.dart';
 
 class ThemeColorIndicator extends StatelessWidget {
   final double width;

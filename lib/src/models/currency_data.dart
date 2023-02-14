@@ -1,5 +1,5 @@
 import 'google_news_article.dart';
-import 'package:equity/src/types/currency.dart';
+import 'package:equity/src/enums/currency.dart';
 
 /* Class: CurrencyData from Google */
 class CurrencyData {

@@ -1,9 +1,10 @@
+import 'package:equity/src/enums/currency.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // Local
 import 'package:equity/src/models/settings.dart';
-import 'package:equity/src/types/appearance.dart';
+import 'package:equity/src/enums/appearance.dart';
 import 'package:equity/src/ui/theme/global.dart';
 import 'package:equity/src/ui/views/root_view.dart';
 import 'package:equity/src/router/navigator_wrapper.dart';
@@ -12,8 +13,9 @@ import 'package:equity/src/providers/equity_api_provider.dart';
 void main() async {
   await Hive.initFlutter();
   // Registers custom type adapters.
-  Hive.registerAdapter(SettingsAdapter());
   Hive.registerAdapter(AppearanceAdapter());
+  Hive.registerAdapter(CurrencyAdapter());
+  Hive.registerAdapter(SettingsAdapter());
   // Opens box(es).
   await Hive.openBox<Settings>('Settings');
   // Configures settings; make sure defaults exist.
@@ -36,7 +38,7 @@ class Application extends StatelessWidget {
           child: MaterialApp(
             theme: Themes.light,
             darkTheme: Themes.dark,
-            themeMode: _setThemeMode(settings.get('storedSettings')!.theme) ??
+            themeMode: _setThemeMode(settings.get('storedSettings')?.theme) ??
                 ThemeMode.system,
             home: const RootView(),
             debugShowCheckedModeBanner: false,

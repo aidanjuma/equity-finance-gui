@@ -18,15 +18,18 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     };
     return Settings(
       theme: fields[0] as Appearance,
+      defaultCurrency: fields[1] as Currency,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.theme);
+      ..write(obj.theme)
+      ..writeByte(1)
+      ..write(obj.defaultCurrency);
   }
 
   @override
