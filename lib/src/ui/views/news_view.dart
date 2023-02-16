@@ -1,8 +1,9 @@
+import 'package:equity/src/ui/components/sliders/news_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:equity/src/router/routes.dart';
 import 'package:equity/src/router/navigator_wrapper.dart';
+import 'package:equity/src/models/google_news_article.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
 import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 import 'package:equity/src/ui/components/panels/news_article_panel.dart';
@@ -39,21 +40,99 @@ class _NewsViewState extends State<NewsView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Top Stories",
                     style: _titleStyle,
                   ),
-                  // <Scrollable Data>
-                  Text(
+                  Center(
+                    child: Builder(
+                      builder: (context) {
+                        if (storiesAvailable) {
+                          final List<NewsArticlePanel> panels =
+                              _parseNewsArticles(
+                            provider.marketStories!.topStories,
+                          );
+
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: height * 0.025,
+                            ),
+                            child: NewsSlider(
+                              direction: Axis.vertical,
+                              panels: panels,
+                            ),
+                          );
+                        }
+
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: height * 0.1),
+                          child: const CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ),
+                  const Text(
                     "Local Market",
                     style: _titleStyle,
                   ),
-                  // <Scrollable Data>
-                  Text(
+                  Center(
+                    child: Builder(
+                      builder: (context) {
+                        if (storiesAvailable) {
+                          final List<NewsArticlePanel> panels =
+                              _parseNewsArticles(
+                            provider.marketStories!.localMarket,
+                          );
+
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: height * 0.025,
+                            ),
+                            child: NewsSlider(
+                              direction: Axis.vertical,
+                              panels: panels,
+                            ),
+                          );
+                        }
+
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: height * 0.1),
+                          child: const CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ),
+                  const Text(
                     "World Markets",
                     style: _titleStyle,
                   ),
-                  // <Scrollable Data>
+                  Center(
+                    child: Builder(
+                      builder: (context) {
+                        if (storiesAvailable) {
+                          final List<NewsArticlePanel> panels =
+                              _parseNewsArticles(
+                            provider.marketStories!.worldMarkets,
+                          );
+
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: height * 0.025,
+                            ),
+                            child: NewsSlider(
+                              direction: Axis.vertical,
+                              panels: panels,
+                            ),
+                          );
+                        }
+
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: height * 0.1),
+                          child: const CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             );
@@ -61,6 +140,23 @@ class _NewsViewState extends State<NewsView> {
         ),
       ),
     );
+  }
+
+  List<NewsArticlePanel> _parseNewsArticles(List<GoogleNewsArticle> articles) {
+    List<NewsArticlePanel> panels = [];
+    for (int i = 0; i < articles.length; i++) {
+      final article = articles[i];
+      panels.add(
+        NewsArticlePanel(
+          link: article.link,
+          imageUrl: article.thumbnailUrl,
+          publisher: article.publisher,
+          whenPublished: article.whenPublished,
+          title: article.title,
+        ),
+      );
+    }
+    return panels;
   }
 
   @override
