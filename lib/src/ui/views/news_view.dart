@@ -1,14 +1,13 @@
-import 'package:equity/src/ui/components/sliders/news_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:equity/src/router/routes.dart';
-import 'package:equity/src/router/navigator_wrapper.dart';
 import 'package:equity/src/models/google_news_article.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
+import 'package:equity/src/ui/components/sliders/default_slider.dart';
 import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 import 'package:equity/src/ui/components/panels/news_article_panel.dart';
 
 const TextStyle _titleStyle = TextStyle(
+  fontFamily: 'DM Sans',
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
@@ -55,9 +54,9 @@ class _NewsViewState extends State<NewsView> {
 
                           return Container(
                             padding: EdgeInsets.symmetric(
-                              vertical: height * 0.025,
+                              vertical: height * 0.015,
                             ),
-                            child: NewsSlider(
+                            child: DefaultSlider(
                               direction: Axis.vertical,
                               panels: panels,
                             ),
@@ -86,9 +85,9 @@ class _NewsViewState extends State<NewsView> {
 
                           return Container(
                             padding: EdgeInsets.symmetric(
-                              vertical: height * 0.025,
+                              vertical: height * 0.015,
                             ),
-                            child: NewsSlider(
+                            child: DefaultSlider(
                               direction: Axis.vertical,
                               panels: panels,
                             ),
@@ -117,9 +116,9 @@ class _NewsViewState extends State<NewsView> {
 
                           return Container(
                             padding: EdgeInsets.symmetric(
-                              vertical: height * 0.025,
+                              vertical: height * 0.015,
                             ),
-                            child: NewsSlider(
+                            child: DefaultSlider(
                               direction: Axis.vertical,
                               panels: panels,
                             ),

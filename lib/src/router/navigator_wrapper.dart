@@ -3,6 +3,7 @@ import 'package:equity/src/router/routes.dart';
 import 'package:equity/src/ui/views/root_view.dart';
 import 'package:equity/src/ui/views/news_view.dart';
 import 'package:equity/src/ui/views/search_view.dart';
+import 'package:equity/src/ui/views/asset_view.dart';
 import 'package:equity/src/ui/views/portfolio_view.dart';
 import 'package:equity/src/ui/views/settings_view.dart';
 
@@ -13,6 +14,7 @@ class NavigatorWrapper {
       Routes.root: (context) => const RootView(),
       Routes.news: (context) => const NewsView(),
       Routes.search: (context) => const SearchView(),
+      Routes.asset: (context) => const AssetView(),
       Routes.portfolio: (context) => const PortfolioView(),
       Routes.settings: (context) => const SettingsView(),
     };

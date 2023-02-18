@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:equity/src/utils/debouncer.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
+import 'package:equity/src/ui/components/sliders/default_slider.dart';
 import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
+import 'package:equity/src/ui/components/panels/search_result_panel.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -28,7 +30,7 @@ class _SearchViewState extends State<SearchView> {
             margin: EdgeInsets.only(
               left: width * 0.05,
               right: width * 0.05,
-              bottom: height * 0.035,
+              bottom: height * 0.025,
             ),
             child: Container(
               padding: const EdgeInsets.all(12),
@@ -58,6 +60,24 @@ class _SearchViewState extends State<SearchView> {
                 ],
               ),
             ),
+          ),
+          Consumer<EquityApiProvider>(
+            builder: (context, provider, child) {
+              if (provider.results != null) {
+                List<SearchResultPanel> panels = [];
+
+                for (int i = 0; i < provider.results!.length; i++) {
+                  final result = provider.results![i];
+                  panels.add(SearchResultPanel(result: result));
+                }
+
+                return DefaultSlider(
+                  direction: Axis.vertical,
+                  panels: panels,
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
         ],
       ),

@@ -33,9 +33,7 @@ class NewsArticlePanel extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return GestureDetector(
-      onTap: () => _launchUrl(
-        Uri.parse(link),
-      ),
+      onTap: () => _launchUrl(Uri.parse(link)),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: height * 0.01),
         child: Row(
