@@ -1,11 +1,11 @@
-import 'package:equity/src/enums/currency.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // Local
+import 'package:equity/src/enums/currency.dart';
 import 'package:equity/src/models/settings.dart';
-import 'package:equity/src/enums/appearance.dart';
 import 'package:equity/src/ui/theme/global.dart';
+import 'package:equity/src/enums/appearance.dart';
 import 'package:equity/src/ui/views/root_view.dart';
 import 'package:equity/src/router/navigator_wrapper.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';

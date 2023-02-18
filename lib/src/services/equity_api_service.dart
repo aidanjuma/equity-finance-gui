@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 // Local
 import 'package:equity/src/enums/currency.dart';
 import 'package:equity/src/models/currency_data.dart';
+import 'package:equity/src/models/search_result.dart';
 import 'package:equity/src/models/market_stories.dart';
 import 'package:equity/src/models/google_news_article.dart';
 
@@ -16,6 +17,34 @@ class EquityApiService {
   static const String _googleFinanceEndpoint = '$_baseUrl/fiat/google';
 
   /* Google Finance */
+  Future<List<SearchResult>?> searchGoogleAssets(String query) async {
+    final Uri url = Uri.parse('$_googleFinanceEndpoint/search/$query');
+
+    final List<dynamic> results = await _makeGetRequest(() async {
+      Response response = await _client.get(url);
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      return data['results'];
+    });
+
+    if (results.isNotEmpty) {
+      List<SearchResult> assets = [];
+
+      for (int i = 0; i < results.length; i++) {
+        final result = results[i];
+        assets.add(
+          SearchResult(
+            ticker: result['ticker'],
+            market: result['market'],
+          ),
+        );
+      }
+
+      return assets;
+    }
+
+    return null;
+  }
+
   Future<MarketStories> getGoogleMarketFinanceNews() async {
     final Uri url = Uri.parse('$_googleFinanceEndpoint/news');
 
