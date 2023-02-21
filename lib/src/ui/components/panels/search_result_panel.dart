@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:equity/src/router/routes.dart';
 import 'package:equity/src/models/search_result.dart';
 import 'package:equity/src/router/navigator_wrapper.dart';
+import 'package:equity/src/providers/equity_api_provider.dart';
 
 class SearchResultPanel extends StatelessWidget {
   final SearchResult result;
@@ -16,7 +18,8 @@ class SearchResultPanel extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // TODO: Update currently selected asset in provider...
+        Provider.of<EquityApiProvider>(context, listen: false)
+            .updateSelectedAssetTicker('${result.ticker}:${result.market}');
         NavigatorWrapper.push(context, Routes.asset);
       },
       child: Container(

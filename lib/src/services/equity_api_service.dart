@@ -3,10 +3,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 // Local
+import 'package:equity/src/enums/market.dart';
 import 'package:equity/src/enums/currency.dart';
-import 'package:equity/src/models/currency_data.dart';
+import 'package:equity/src/enums/asset_type.dart';
+import 'package:equity/src/models/price_range.dart';
+import 'package:equity/src/models/google_asset.dart';
 import 'package:equity/src/models/search_result.dart';
 import 'package:equity/src/models/market_stories.dart';
+import 'package:equity/src/models/market_summary.dart';
 import 'package:equity/src/models/google_news_article.dart';
 
 class EquityApiService {
@@ -62,6 +66,36 @@ class EquityApiService {
     return stories;
   }
 
+  Future<GoogleAsset?> getGoogleAssetData(String ticker) async {
+    final Uri url = Uri.parse('$_googleFinanceEndpoint/asset/$ticker');
+
+    final Map<String, dynamic> data = await _makeGetRequest(() async {
+      Response response = await _client.get(url);
+      return jsonDecode(response.body) as Map<String, dynamic>;
+    });
+
+    final marketSummaryObj = data['marketSummary'];
+
+    return GoogleAsset(
+      ticker: ticker,
+      label: data['label'],
+      description: data['description'],
+      type: AssetType.values.byName(data['assetType']),
+      market: Market.values.byName(data['market']),
+      marketCurrency: Currency.values.byName(data['marketCurrency']),
+      currentPrice: data['currentPrice'],
+      preMarketPrice: data['preMarketPrice'],
+      marketSummary: marketSummaryObj != null
+          ? _parseMarketSummary(marketSummaryObj)
+          : null,
+      news: _parseNewsArticles(data['news']),
+    );
+  }
+
+  PriceRange _parsePriceRange(Map<String, dynamic> range) {
+    return PriceRange(low: range['low'], high: range['high']);
+  }
+
   // Parse news from GFI into GoogleNewsArticle objects.
   List<GoogleNewsArticle> _parseNewsArticles(List<dynamic> googleNews) {
     // Add each news article to a list.
@@ -80,6 +114,27 @@ class EquityApiService {
     }
 
     return news;
+  }
+
+  MarketSummary _parseMarketSummary(Map<String, dynamic> summary) {
+    final primaryExchange = summary['primaryExchange'];
+
+    return MarketSummary(
+      primaryExchange: primaryExchange != null
+          ? Market.values.byName(primaryExchange)
+          : null,
+      previousClosePrice: summary['previousClosePrice'],
+      marketCap: summary['marketCap'],
+      dayRange: _parsePriceRange(summary['dayRange']),
+      yearRange: _parsePriceRange(summary['yearRange']),
+      volume: summary['volume'],
+      avgVolume: summary['avgVolume'],
+      pteRatio: summary['pteRatio'],
+      settlementPrice: summary['settlementPrice'],
+      marketSegment: summary['marketSegment'],
+      dividendYield: summary['dividendYield'],
+      openInterest: summary['openInterest'],
+    );
   }
 
   // Network: Re-useable try-catch block; call request.

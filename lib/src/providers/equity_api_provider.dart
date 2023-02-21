@@ -1,3 +1,4 @@
+import 'package:equity/src/models/google_asset.dart';
 import 'package:flutter/foundation.dart';
 import 'package:equity/src/models/search_result.dart';
 import 'package:equity/src/models/market_stories.dart';
@@ -19,6 +20,12 @@ class EquityApiProvider extends ChangeNotifier {
   List<SearchResult>? _results;
   List<SearchResult>? get results => _results;
 
+  /* Asset Page */
+  String? _selectedAssetTicker;
+  String? get selectedAssetTicker => _selectedAssetTicker;
+  GoogleAsset? _selectedAssetData;
+  GoogleAsset? get selectedAssetData => _selectedAssetData;
+
   Future<void> searchGoogleAssets(String query) async {
     _setLoading(true);
 
@@ -34,6 +41,19 @@ class EquityApiProvider extends ChangeNotifier {
   Future<void> getGoogleFinanceMarketNews() async {
     _setLoading(true);
     _marketStories = await _service.getGoogleMarketFinanceNews();
+    _setLoading(false);
+  }
+
+  Future<void> updateSelectedAssetTicker(String ticker) async {
+    _setLoading(true);
+    _selectedAssetTicker = ticker;
+    _setLoading(false);
+  }
+
+  Future<void> getGoogleAssetData() async {
+    _setLoading(true);
+    _selectedAssetData =
+        await _service.getGoogleAssetData(_selectedAssetTicker!);
     _setLoading(false);
   }
 
