@@ -4,7 +4,7 @@ import 'package:equity/src/enums/market.dart';
 class MarketSummary {
   final Market? primaryExchange;
   final double? previousClosePrice;
-  final double? marketCap;
+  final int? marketCap;
   final PriceRange? dayRange;
   final PriceRange? yearRange;
   final int? volume;
