@@ -1,3 +1,4 @@
+import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 // Local
 import 'package:equity/src/enums/appearance.dart';
@@ -10,11 +11,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colors = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-          title: Container(
-        padding: const EdgeInsets.only(left: 12),
-        child: const Text('Settings'),
-      )),
+      appBar: customAppBar(context, 2),
       body: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 12,

@@ -23,7 +23,7 @@ class _SearchViewState extends State<SearchView> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: customAppBar(context),
+      appBar: customAppBar(context, 0),
       body: Column(
         children: <Widget>[
           Container(

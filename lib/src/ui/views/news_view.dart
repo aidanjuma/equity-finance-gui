@@ -26,7 +26,7 @@ class _NewsViewState extends State<NewsView> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: customAppBar(context),
+      appBar: customAppBar(context, 0),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Consumer<EquityApiProvider>(

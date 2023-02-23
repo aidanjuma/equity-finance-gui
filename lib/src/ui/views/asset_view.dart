@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:equity/src/providers/equity_api_provider.dart';
+import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 
 class AssetView extends StatefulWidget {
   const AssetView({super.key});
@@ -12,7 +11,9 @@ class AssetView extends StatefulWidget {
 class _AssetViewState extends State<AssetView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: customAppBar(context, 1),
+    );
   }
 
   @override
