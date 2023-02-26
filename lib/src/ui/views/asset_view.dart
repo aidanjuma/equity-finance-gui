@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:equity/src/utils/global.dart';
 import 'package:equity/src/models/google_asset.dart';
@@ -107,9 +108,89 @@ class _AssetViewState extends State<AssetView> {
                                       Text(
                                         convertEnumValueToString(asset.type),
                                         style: _infoTextStyle,
-                                      )
+                                      ),
                                     ],
                                   ),
+                                  asset.preMarketPrice != null
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Text(
+                                              'Pre Market Price',
+                                              style: _infoTextStyle,
+                                            ),
+                                            Text(
+                                              '${asset.preMarketPrice} ${convertEnumValueToString(asset.marketCurrency)}',
+                                              style: _infoTextStyle,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox.shrink(),
+                                  asset.marketSummary?.dayRange != null
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Text(
+                                              'Day Range',
+                                              style: _infoTextStyle,
+                                            ),
+                                            Text(
+                                              '${asset.marketSummary?.dayRange.toString()} ${convertEnumValueToString(asset.marketCurrency)}',
+                                              style: _infoTextStyle,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox.shrink(),
+                                  asset.marketSummary?.yearRange != null
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Text(
+                                              'Year Range',
+                                              style: _infoTextStyle,
+                                            ),
+                                            Text(
+                                              '${asset.marketSummary?.yearRange.toString()} ${convertEnumValueToString(asset.marketCurrency)}',
+                                              style: _infoTextStyle,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox.shrink(),
+                                  asset.marketSummary?.marketCap != null
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Text(
+                                              'Market Cap',
+                                              style: _infoTextStyle,
+                                            ),
+                                            Text(
+                                              '${NumberFormat.compact().format(asset.marketSummary?.marketCap)} ${convertEnumValueToString(asset.marketCurrency)}',
+                                              style: _infoTextStyle,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox.shrink(),
+                                  asset.marketSummary?.avgVolume != null
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Text(
+                                              'Average Volume',
+                                              style: _infoTextStyle,
+                                            ),
+                                            Text(
+                                              '${NumberFormat.compact().format(asset.marketSummary?.avgVolume)} ${convertEnumValueToString(asset.marketCurrency)}',
+                                              style: _infoTextStyle,
+                                            ),
+                                          ],
+                                        )
+                                      : const SizedBox.shrink(),
                                 ],
                               ),
                             )
