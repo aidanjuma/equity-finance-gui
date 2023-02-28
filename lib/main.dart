@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // Local
+import 'package:equity/src/utils/global.dart';
 import 'package:equity/src/enums/currency.dart';
 import 'package:equity/src/models/settings.dart';
 import 'package:equity/src/ui/theme/global.dart';
@@ -19,7 +20,7 @@ void main() async {
   // Opens box(es).
   await Hive.openBox<Settings>('Settings');
   // Configures settings; make sure defaults exist.
-  await _configSettings();
+  await resetSettings();
   // Runs the app.
   const app = Application();
   runApp(app);
@@ -48,16 +49,6 @@ class Application extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-Future _configSettings() async {
-  Box<Settings> settingsBox = Hive.box('Settings');
-  Settings? storedSettings = settingsBox.get('storedSettings');
-  // If storedSettings isn't found, ensure clear and generate defaults.
-  if (storedSettings == null) {
-    await settingsBox.clear();
-    await settingsBox.put('storedSettings', Settings());
   }
 }
 

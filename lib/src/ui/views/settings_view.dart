@@ -1,7 +1,8 @@
-import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 // Local
+import 'package:equity/src/utils/global.dart';
 import 'package:equity/src/enums/appearance.dart';
+import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 import 'package:equity/src/ui/components/settings/theme_color_indicator.dart';
 
 class SettingsView extends StatelessWidget {
@@ -53,8 +54,22 @@ class SettingsView extends StatelessWidget {
                       ThemeColorIndicator(colorMode: Appearance.light)
                     ],
                   ),
-                )
+                ),
               ],
+            ),
+            GestureDetector(
+              onTap: () => deleteAllStoredData(),
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 32),
+                child: Text(
+                  'Delete All Stored Data (Settings & Portfolio)',
+                  style: TextStyle(
+                    fontFamily: 'Lexend',
+                    fontSize: 14,
+                    color: const Color(0xfff76161).withOpacity(0.85),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

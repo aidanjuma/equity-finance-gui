@@ -16,7 +16,7 @@ import 'package:equity/src/models/google_news_article.dart';
 class EquityApiService {
   final Client _client = Client();
 
-  static const String _baseUrl = 'http://192.168.1.225:3000';
+  static const String _baseUrl = 'http://192.168.1.242:3000';
   static const String _binanceEndpoint = '$_baseUrl/fiat/binance';
   static const String _googleFinanceEndpoint = '$_baseUrl/fiat/google';
 
