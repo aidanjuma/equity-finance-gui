@@ -58,7 +58,7 @@ class SettingsView extends StatelessWidget {
               ],
             ),
             GestureDetector(
-              onTap: () => deleteAllStoredData(),
+              onTap: () => _resetDataDialogBuilder(context),
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 32),
                 child: Text(
@@ -76,4 +76,46 @@ class SettingsView extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _resetDataDialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Stored Data Deletion'),
+          content: const Text('Proceeding with this request will\n'
+              'delete ALL data stored within equity\n'
+              '(including portfolio & settings data).\n\n'
+              'Thus, settings will be returned to their default values.\n\n'
+              'Continue?'),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('No'),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: Text(
+                'Yes',
+                style: TextStyle(
+                  color: const Color(0xfff76161).withOpacity(0.85),
+                ),
+              ),
+              onPressed: () async {
+                _awaitDeletion();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _awaitDeletion() async => await deleteAllStoredData();
 }

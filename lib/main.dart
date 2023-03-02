@@ -20,7 +20,7 @@ void main() async {
   // Opens box(es).
   await Hive.openBox<Settings>('Settings');
   // Configures settings; make sure defaults exist.
-  await resetSettings();
+  await resetSettings(false);
   // Runs the app.
   const app = Application();
   runApp(app);
