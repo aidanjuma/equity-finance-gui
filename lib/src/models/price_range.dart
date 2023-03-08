@@ -1,6 +1,6 @@
 class PriceRange {
-  final double low;
-  final double high;
+  final num low;
+  final num high;
 
   @override
   String toString() {

@@ -1,3 +1,4 @@
+import 'package:equity/src/ui/components/sliders/default_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,7 @@ import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 
 const TextStyle _infoTextStyle = TextStyle(
   fontFamily: 'Lexend',
-  fontSize: 14,
+  fontSize: 18,
 );
 
 class AssetView extends StatefulWidget {
@@ -79,10 +80,14 @@ class _AssetViewState extends State<AssetView> {
                                   fontSize: 32,
                                 ),
                               ),
+                              asset.dailyPriceDelta != null &&
+                                      asset.currentPrice != null
+                                  ? _renderPriceDeltaText(asset.currentPrice!,
+                                      asset.dailyPriceDelta!)
+                                  : const SizedBox.shrink(),
                               Container(
-                                margin: EdgeInsets.only(
-                                  top: height * 0.04,
-                                  bottom: height * 0.02,
+                                margin: EdgeInsets.symmetric(
+                                  vertical: height * 0.02,
                                 ),
                                 child: Column(
                                   children: <Widget>[
@@ -257,20 +262,64 @@ class _AssetViewState extends State<AssetView> {
                                         fontSize: 14,
                                       ),
                                     ),
-                                    const Padding(
+                                    Padding(
                                       padding: EdgeInsets.symmetric(
-                                        vertical: 2,
+                                        vertical: height * 0.005,
                                       ),
                                     ),
                                     Expanded(
                                       child: Scrollbar(
+                                        interactive: true,
                                         child: SingleChildScrollView(
                                           child: Text(
                                             asset.description!,
-                                            style: _infoTextStyle,
+                                            style: const TextStyle(
+                                              fontFamily: 'Lexend',
+                                              fontSize: 14,
+                                            ),
+                                            textAlign: TextAlign.justify,
                                           ),
                                         ),
                                       ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                        asset.news != null
+                            ? Container(
+                                width: double.infinity,
+                                height: height * 0.45,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: height * 0.01,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    const Text(
+                                      'News',
+                                      style: TextStyle(
+                                        fontFamily: 'DM Sans',
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: height * 0.005,
+                                      ),
+                                    ),
+                                    DefaultSlider(
+                                      direction: Axis.vertical,
+                                      panels: parseNewsArticles(asset.news!),
                                     ),
                                   ],
                                 ),
@@ -284,6 +333,28 @@ class _AssetViewState extends State<AssetView> {
                   );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _renderPriceDeltaText(num currentPrice, num priceDelta) {
+    final bool isNegative = priceDelta.sign == -1.0 ? true : false;
+
+    final num previousPrice =
+        isNegative ? priceDelta + currentPrice : currentPrice - priceDelta;
+
+    final String priceDeltaPercentage =
+        (((currentPrice / previousPrice) - 1) * 100).toStringAsFixed(2);
+
+    return Text(
+      '1D | ${isNegative ? "-$priceDeltaPercentage" : priceDeltaPercentage}%',
+      style: TextStyle(
+        fontFamily: 'Lexend',
+        color: isNegative
+            ? const Color(0xfff76161).withOpacity(0.85)
+            : const Color(0xff6ed265),
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
       ),
     );
   }

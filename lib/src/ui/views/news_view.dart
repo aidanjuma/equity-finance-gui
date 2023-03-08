@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:equity/src/models/google_news_article.dart';
+import 'package:equity/src/utils/global.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
 import 'package:equity/src/ui/components/sliders/default_slider.dart';
 import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
@@ -48,7 +48,7 @@ class _NewsViewState extends State<NewsView> {
                       builder: (context) {
                         if (storiesAvailable) {
                           final List<NewsArticlePanel> panels =
-                              _parseNewsArticles(
+                              parseNewsArticles(
                             provider.marketStories!.topStories,
                           );
 
@@ -79,7 +79,7 @@ class _NewsViewState extends State<NewsView> {
                       builder: (context) {
                         if (storiesAvailable) {
                           final List<NewsArticlePanel> panels =
-                              _parseNewsArticles(
+                              parseNewsArticles(
                             provider.marketStories!.localMarket,
                           );
 
@@ -110,7 +110,7 @@ class _NewsViewState extends State<NewsView> {
                       builder: (context) {
                         if (storiesAvailable) {
                           final List<NewsArticlePanel> panels =
-                              _parseNewsArticles(
+                              parseNewsArticles(
                             provider.marketStories!.worldMarkets,
                           );
 
@@ -139,23 +139,6 @@ class _NewsViewState extends State<NewsView> {
         ),
       ),
     );
-  }
-
-  List<NewsArticlePanel> _parseNewsArticles(List<GoogleNewsArticle> articles) {
-    List<NewsArticlePanel> panels = [];
-    for (int i = 0; i < articles.length; i++) {
-      final article = articles[i];
-      panels.add(
-        NewsArticlePanel(
-          link: article.link,
-          imageUrl: article.thumbnailUrl,
-          publisher: article.publisher,
-          whenPublished: article.whenPublished,
-          title: article.title,
-        ),
-      );
-    }
-    return panels;
   }
 
   @override

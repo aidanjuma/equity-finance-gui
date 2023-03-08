@@ -8,8 +8,9 @@ class GoogleAsset extends Asset {
   final Market? market;
   final Currency? marketCurrency;
   final String? label;
-  final double? currentPrice;
-  final double? preMarketPrice;
+  final num? currentPrice;
+  final num? dailyPriceDelta;
+  final num? preMarketPrice;
   final MarketSummary? marketSummary;
   final String? description;
   final List<GoogleNewsArticle>? news;
@@ -21,6 +22,7 @@ class GoogleAsset extends Asset {
     this.marketCurrency,
     this.label,
     this.currentPrice,
+    this.dailyPriceDelta,
     this.preMarketPrice,
     this.marketSummary,
     this.description,

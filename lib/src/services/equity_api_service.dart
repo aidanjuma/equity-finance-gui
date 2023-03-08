@@ -84,6 +84,7 @@ class EquityApiService {
       market: Market.values.byName(data['market']),
       marketCurrency: Currency.values.byName(data['marketCurrency']),
       currentPrice: data['currentPrice'],
+      dailyPriceDelta: data['dailyPriceDelta'],
       preMarketPrice: data['preMarketPrice'],
       marketSummary: marketSummaryObj != null
           ? _parseMarketSummary(marketSummaryObj)
