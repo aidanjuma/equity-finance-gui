@@ -26,7 +26,7 @@ PreferredSize customAppBar(BuildContext context, int type) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          type == 0
+          type == 0 || type == 3
               ? const Text(
                   'equity',
                   style: _titleStyle,
@@ -38,18 +38,34 @@ PreferredSize customAppBar(BuildContext context, int type) {
                     size: 28,
                   ),
                 ),
-          type != 2
-              ? GestureDetector(
-                  onTap: () => NavigatorWrapper.push(context, Routes.settings),
-                  child: const Icon(
-                    EvaIcons.settingsOutline,
-                    size: 28,
-                  ),
-                )
-              : const Text(
-                  'Settings',
-                  style: _titleStyle,
-                )
+          Row(
+            children: <Widget>[
+              // TODO: Modal for adding asset to DB.
+              type == 3
+                  ? GestureDetector(
+                      onTap: () => {},
+                      child: const Icon(
+                        EvaIcons.plus,
+                        size: 28,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 8)),
+              type != 2
+                  ? GestureDetector(
+                      onTap: () =>
+                          NavigatorWrapper.push(context, Routes.settings),
+                      child: const Icon(
+                        EvaIcons.settingsOutline,
+                        size: 28,
+                      ),
+                    )
+                  : const Text(
+                      'Settings',
+                      style: _titleStyle,
+                    ),
+            ],
+          ),
         ],
       ),
     ),

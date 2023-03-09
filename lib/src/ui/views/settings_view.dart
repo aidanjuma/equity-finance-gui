@@ -10,7 +10,8 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colors = Theme.of(context).colorScheme;
+    final colors = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: customAppBar(context, 2),
       body: Container(
