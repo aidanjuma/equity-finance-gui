@@ -1,3 +1,4 @@
+import 'package:equity/src/utils/asset_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:equity/src/router/routes.dart';
@@ -40,10 +41,9 @@ PreferredSize customAppBar(BuildContext context, int type) {
                 ),
           Row(
             children: <Widget>[
-              // TODO: Modal for adding asset to DB.
               type == 3
                   ? GestureDetector(
-                      onTap: () => {},
+                      onTap: () => addAssetToPortfolioDialogBuilder(context),
                       child: const Icon(
                         EvaIcons.plus,
                         size: 28,
