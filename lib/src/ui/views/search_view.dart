@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:equity/src/utils/global.dart';
 import 'package:equity/src/utils/debouncer.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
 import 'package:equity/src/ui/components/sliders/default_slider.dart';
@@ -54,7 +55,8 @@ class _SearchViewState extends State<SearchView> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onChanged: (query) => _updateSearchResults(query),
+                      onChanged: (query) =>
+                          updateSearchResults(context, _debouncer, query),
                     ),
                   ),
                 ],
@@ -81,19 +83,6 @@ class _SearchViewState extends State<SearchView> {
           ),
         ],
       ),
-    );
-  }
-
-  void _updateSearchResults(String query) {
-    _debouncer.run(
-      () async {
-        final equityProvider =
-            Provider.of<EquityApiProvider>(context, listen: false);
-        // Only fire request if query is different than last time.
-        if (equityProvider.latestQuery != query) {
-          await equityProvider.searchGoogleAssets(query);
-        }
-      },
     );
   }
 

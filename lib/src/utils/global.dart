@@ -1,7 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 import 'package:equity/src/models/settings.dart';
 import 'package:equity/src/models/google_news_article.dart';
+import 'package:equity/src/providers/equity_api_provider.dart';
 import 'package:equity/src/ui/components/panels/news_article_panel.dart';
+
+import 'debouncer.dart';
 
 Future resetSettings(bool dataDeletionRequested) async {
   Box<Settings> settingsBox = Hive.box('Settings');
@@ -39,4 +44,18 @@ List<NewsArticlePanel> parseNewsArticles(List<GoogleNewsArticle> articles) {
 
 String convertEnumValueToString(enumValue) {
   return enumValue.toString().split('.').last;
+}
+
+void updateSearchResults(
+    BuildContext context, Debouncer debouncer, String query) {
+  debouncer.run(
+    () async {
+      final equityProvider =
+          Provider.of<EquityApiProvider>(context, listen: false);
+      // Only fire request if query is different than last time.
+      if (equityProvider.latestQuery != query) {
+        await equityProvider.searchGoogleAssets(query);
+      }
+    },
+  );
 }
