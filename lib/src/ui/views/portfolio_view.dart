@@ -1,5 +1,5 @@
-import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import '../../ui/components/navigation/custom_app_bar.dart';
 
 const TextStyle _labelStyle = TextStyle(
   fontFamily: 'Lexend',

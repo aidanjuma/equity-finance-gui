@@ -1,8 +1,8 @@
-import 'package:equity/src/utils/asset_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:equity/src/router/routes.dart';
-import 'package:equity/src/router/navigator_wrapper.dart';
+import '../../../router/routes.dart';
+import '../../../utils/asset_dialog.dart';
+import '../../../router/navigator_wrapper.dart';
 
 const TextStyle _titleStyle = TextStyle(
   fontSize: 32,

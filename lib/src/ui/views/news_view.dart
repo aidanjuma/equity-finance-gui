@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:equity/src/utils/global.dart';
-import 'package:equity/src/providers/equity_api_provider.dart';
-import 'package:equity/src/ui/components/sliders/default_slider.dart';
-import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
-import 'package:equity/src/ui/components/panels/news_article_panel.dart';
+import '../../utils/global.dart';
+import '../../providers/equity_api_provider.dart';
+import '../../ui/components/sliders/default_slider.dart';
+import '../../ui/components/navigation/custom_app_bar.dart';
+import '../../ui/components/panels/news_article_panel.dart';
 
 const TextStyle _titleStyle = TextStyle(
   fontFamily: 'DM Sans',

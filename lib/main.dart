@@ -8,6 +8,7 @@ import 'package:equity/src/models/settings.dart';
 import 'package:equity/src/ui/theme/global.dart';
 import 'package:equity/src/enums/appearance.dart';
 import 'package:equity/src/ui/views/root_view.dart';
+import 'package:equity/src/models/google_asset.dart';
 import 'package:equity/src/router/navigator_wrapper.dart';
 import 'package:equity/src/providers/equity_api_provider.dart';
 
@@ -17,8 +18,10 @@ void main() async {
   Hive.registerAdapter(AppearanceAdapter());
   Hive.registerAdapter(CurrencyAdapter());
   Hive.registerAdapter(SettingsAdapter());
+  Hive.registerAdapter(GoogleAssetAdapter());
   // Opens box(es).
   await Hive.openBox<Settings>('Settings');
+  await Hive.openBox<GoogleAsset>('GoogleAsset');
   // Configures settings; make sure defaults exist.
   await resetSettings(false);
   // Runs the app.

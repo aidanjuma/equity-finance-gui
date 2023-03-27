@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:equity/src/router/routes.dart';
-import 'package:equity/src/models/search_result.dart';
-import 'package:equity/src/router/navigator_wrapper.dart';
-import 'package:equity/src/providers/equity_api_provider.dart';
+import '../../../router/routes.dart';
+import '../../../models/search_result.dart';
+import '../../../router/navigator_wrapper.dart';
+import '../../../providers/equity_api_provider.dart';
 
 class SearchResultPanel extends StatelessWidget {
   final SearchResult result;

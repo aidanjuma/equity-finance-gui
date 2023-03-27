@@ -19,17 +19,20 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     return Settings(
       theme: fields[0] as Appearance,
       defaultCurrency: fields[1] as Currency,
+      briefingPageAssetId: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.theme)
       ..writeByte(1)
-      ..write(obj.defaultCurrency);
+      ..write(obj.defaultCurrency)
+      ..writeByte(2)
+      ..write(obj.briefingPageAssetId);
   }
 
   @override

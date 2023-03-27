@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 
 part 'currency.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 6)
 enum Currency {
   @HiveField(0)
   AED,

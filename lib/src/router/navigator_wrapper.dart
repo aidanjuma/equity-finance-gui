@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:equity/src/router/routes.dart';
-import 'package:equity/src/ui/views/root_view.dart';
-import 'package:equity/src/ui/views/news_view.dart';
-import 'package:equity/src/ui/views/search_view.dart';
-import 'package:equity/src/ui/views/asset_view.dart';
-import 'package:equity/src/ui/views/portfolio_view.dart';
-import 'package:equity/src/ui/views/settings_view.dart';
+import '../router/routes.dart';
+import '../ui/views/root_view.dart';
+import '../ui/views/news_view.dart';
+import '../ui/views/search_view.dart';
+import '../ui/views/asset_view.dart';
+import '../ui/views/portfolio_view.dart';
+import '../ui/views/settings_view.dart';
 
 class NavigatorWrapper {
   static String initialRoute = Routes.root;

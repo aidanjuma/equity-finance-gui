@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:equity/src/utils/global.dart';
-import 'package:equity/src/utils/debouncer.dart';
-import 'package:equity/src/providers/equity_api_provider.dart';
-import 'package:equity/src/ui/components/sliders/default_slider.dart';
-import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
-import 'package:equity/src/ui/components/panels/search_result_panel.dart';
+import '../../utils/global.dart';
+import '../../utils/debouncer.dart';
+import '../../providers/equity_api_provider.dart';
+import '../../ui/components/sliders/default_slider.dart';
+import '../../ui/components/navigation/custom_app_bar.dart';
+import '../../ui/components/panels/search_result_panel.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});

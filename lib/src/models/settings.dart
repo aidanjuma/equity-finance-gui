@@ -14,8 +14,13 @@ class Settings extends HiveObject {
   @HiveField(1)
   Currency defaultCurrency;
 
+  // Asset ID for briefing page data fetching; AAPL by default.
+  @HiveField(2)
+  String briefingPageAssetId;
+
   Settings({
     this.theme = Appearance.dark,
     this.defaultCurrency = Currency.GBP,
+    this.briefingPageAssetId = 'AAPL:NASDAQ',
   });
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:equity/src/models/settings.dart';
-import 'package:equity/src/models/google_news_article.dart';
-import 'package:equity/src/providers/equity_api_provider.dart';
-import 'package:equity/src/ui/components/panels/news_article_panel.dart';
+import '../models/settings.dart';
+import '../models/google_news_article.dart';
+import '../providers/equity_api_provider.dart';
+import '../ui/components/panels/news_article_panel.dart';
 
 import 'debouncer.dart';
 

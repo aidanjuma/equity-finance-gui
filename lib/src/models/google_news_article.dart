@@ -1,4 +1,4 @@
-import './news_article.dart';
+import 'news_article.dart';
 
 /* Child Class: GoogleNews (for news sourced from Google Finance) */
 class GoogleNewsArticle extends NewsArticle {

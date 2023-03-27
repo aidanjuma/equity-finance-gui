@@ -4,7 +4,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'news_view.dart';
 import 'search_view.dart';
 import 'portfolio_view.dart';
-import 'package:equity/src/ui/components/navigation/navigation_bar.dart' as nav;
+import '../../ui/components/navigation/navigation_bar.dart' as nav;
 
 class RootView extends StatefulWidget {
   const RootView({Key? key}) : super(key: key);

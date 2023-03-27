@@ -1,8 +1,8 @@
-import 'package:equity/src/models/google_asset.dart';
 import 'package:flutter/foundation.dart';
-import 'package:equity/src/models/search_result.dart';
-import 'package:equity/src/models/market_stories.dart';
-import 'package:equity/src/services/equity_api_service.dart';
+import '../models/google_asset.dart';
+import '../models/search_result.dart';
+import '../models/market_stories.dart';
+import '../services/equity_api_service.dart';
 
 class EquityApiProvider extends ChangeNotifier {
   final EquityApiService _service = EquityApiService();

@@ -8,7 +8,7 @@ part of 'appearance.dart';
 
 class AppearanceAdapter extends TypeAdapter<Appearance> {
   @override
-  final int typeId = 1;
+  final int typeId = 5;
 
   @override
   Appearance read(BinaryReader reader) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 // Local
-import 'package:equity/src/utils/global.dart';
-import 'package:equity/src/enums/appearance.dart';
-import 'package:equity/src/ui/components/navigation/custom_app_bar.dart';
-import 'package:equity/src/ui/components/settings/theme_color_indicator.dart';
+import '../../utils/global.dart';
+import '../../enums/appearance.dart';
+import '../../ui/components/navigation/custom_app_bar.dart';
+import '../../ui/components/settings/theme_color_indicator.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});

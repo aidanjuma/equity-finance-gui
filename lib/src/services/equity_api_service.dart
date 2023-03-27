@@ -3,15 +3,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 // Local
-import 'package:equity/src/enums/market.dart';
-import 'package:equity/src/enums/currency.dart';
-import 'package:equity/src/enums/asset_type.dart';
-import 'package:equity/src/models/price_range.dart';
-import 'package:equity/src/models/google_asset.dart';
-import 'package:equity/src/models/search_result.dart';
-import 'package:equity/src/models/market_stories.dart';
-import 'package:equity/src/models/market_summary.dart';
-import 'package:equity/src/models/google_news_article.dart';
+import '../enums/market.dart';
+import '../enums/currency.dart';
+import '../enums/asset_type.dart';
+import '../models/price_range.dart';
+import '../models/google_asset.dart';
+import '../models/search_result.dart';
+import '../models/market_stories.dart';
+import '../models/market_summary.dart';
+import '../models/google_news_article.dart';
 
 class EquityApiService {
   final Client _client = Client();

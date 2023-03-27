@@ -1,18 +1,43 @@
+import 'package:hive/hive.dart';
 import 'price_range.dart';
-import 'package:equity/src/enums/market.dart';
+import '../enums/market.dart';
 
+@HiveType(typeId: 2)
 class MarketSummary {
+  @HiveField(0)
   final Market? primaryExchange;
+
+  @HiveField(1)
   final double? previousClosePrice;
+
+  @HiveField(2)
   final int? marketCap;
+
+  @HiveField(3)
   final PriceRange? dayRange;
+
+  @HiveField(4)
   final PriceRange? yearRange;
+
+  @HiveField(5)
   final int? volume;
+
+  @HiveField(6)
   final int? avgVolume;
+
+  @HiveField(7)
   final double? pteRatio;
+
+  @HiveField(8)
   final double? settlementPrice;
+
+  @HiveField(9)
   final String? marketSegment;
+
+  @HiveField(10)
   final double? dividendYield;
+
+  @HiveField(11)
   final double? openInterest;
 
   MarketSummary({
