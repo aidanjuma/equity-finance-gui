@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import '../mixins/input_validation.dart';
+import '../providers/equity_api_provider.dart';
 
 class AddAssetDialogBox extends StatefulWidget {
   const AddAssetDialogBox({super.key});
@@ -9,10 +11,12 @@ class AddAssetDialogBox extends StatefulWidget {
   State<AddAssetDialogBox> createState() => _AddAssetDialogBoxState();
 }
 
-class _AddAssetDialogBoxState extends State<AddAssetDialogBox> {
-  TextEditingController assetInput = TextEditingController();
-  TextEditingController priceInput = TextEditingController();
-  TextEditingController dateInput = TextEditingController();
+class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
+    with InputValidationMixin {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _assetInput = TextEditingController();
+  final TextEditingController _quantityInput = TextEditingController();
+  final TextEditingController _priceInput = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,70 +24,57 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox> {
       child: AlertDialog(
         elevation: 0,
         title: const Text('Add Asset'),
-        content: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: TextField(
-                  controller: assetInput,
-                  decoration: const InputDecoration(
-                    label: Text('Asset Ticker/ID'),
-                    icon: Icon(EvaIcons.barChart2),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: TextField(
-                  controller: assetInput,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    label: Text('Quantity'),
-                    icon: Icon(EvaIcons.hash),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: TextField(
-                  controller: priceInput,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    label: Text('Unit Purchase Price'),
-                    icon: Icon(EvaIcons.pricetags),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: TextField(
-                  controller: dateInput,
-                  decoration: const InputDecoration(
-                    label: Text('Date Purchased'),
-                    icon: Icon(EvaIcons.calendar),
-                  ),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1950),
-                      lastDate: DateTime.now(),
-                    );
+        content: Consumer<EquityApiProvider>(
+          builder: (context, provider, child) {
+            return Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: TextFormField(
+                      controller: _assetInput,
+                      validator: (assetId) {
+                        if (isAssetIdValid(
+                              assetId!,
+                              provider.availableGoogleAssets!,
+                            ) ==
+                            true) return null;
 
-                    if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('dd/MM/yyyy').format(pickedDate);
-                      setState(
-                        () => dateInput.text = formattedDate,
-                      ); // Change date stored in controller to selected date.
-                    }
-                  },
-                ),
+                        return 'Enter a valid asset ID.';
+                      },
+                      decoration: const InputDecoration(
+                        label: Text('Asset Ticker/ID'),
+                        icon: Icon(EvaIcons.barChart2),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: TextFormField(
+                      controller: _quantityInput,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        label: Text('Quantity'),
+                        icon: Icon(EvaIcons.hash),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: TextFormField(
+                      controller: _priceInput,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        label: Text('Price Per Unit'),
+                        icon: Icon(EvaIcons.pricetags),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
         actions: <Widget>[
           TextButton(
@@ -91,11 +82,22 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox> {
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
             child: const Text('Confirm'),
-            onPressed: () => {},
+            onPressed: () => _writeAssetDataToStorage(
+              _assetInput.text,
+              int.parse(_quantityInput.text),
+              num.parse(_priceInput.text),
+            ),
           ),
         ],
       ),
     );
+  }
+
+  void _writeAssetDataToStorage(
+      String assetId, int quantityPurchased, num pricePerUnit) {
+    if (_formKey.currentState!.validate()) {
+      Navigator.of(context).pop();
+    }
   }
 }
 

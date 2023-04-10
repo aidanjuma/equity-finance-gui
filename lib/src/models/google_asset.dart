@@ -34,6 +34,9 @@ class GoogleAsset extends Asset {
   @HiveField(9)
   final String? description;
 
+  @HiveField(10)
+  final int? quantity;
+
   final List<GoogleNewsArticle>? news;
 
   GoogleAsset({
@@ -48,5 +51,6 @@ class GoogleAsset extends Asset {
     this.marketSummary,
     this.description,
     this.news,
+    this.quantity,
   });
 }

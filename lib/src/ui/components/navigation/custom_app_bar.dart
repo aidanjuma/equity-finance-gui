@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import '../../../utils/global.dart';
 import '../../../router/routes.dart';
 import '../../../utils/asset_dialog.dart';
 import '../../../router/navigator_wrapper.dart';
@@ -43,7 +44,10 @@ PreferredSize customAppBar(BuildContext context, int type) {
             children: <Widget>[
               type == 3
                   ? GestureDetector(
-                      onTap: () => addAssetToPortfolioDialogBuilder(context),
+                      onTap: () {
+                        updateAssetList(context);
+                        addAssetToPortfolioDialogBuilder(context);
+                      },
                       child: const Icon(
                         EvaIcons.plus,
                         size: 28,

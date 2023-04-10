@@ -26,6 +26,11 @@ class EquityApiProvider extends ChangeNotifier {
   GoogleAsset? _selectedAssetData;
   GoogleAsset? get selectedAssetData => _selectedAssetData;
 
+  /* Available Assets */
+  List<Map<String, dynamic>>? _availableGoogleAssets;
+  List<Map<String, dynamic>>? get availableGoogleAssets =>
+      _availableGoogleAssets;
+
   Future<void> searchGoogleAssets(String query) async {
     _setLoading(true);
 
@@ -54,6 +59,12 @@ class EquityApiProvider extends ChangeNotifier {
     _setLoading(true);
     _selectedAssetData =
         await _service.getGoogleAssetData(_selectedAssetTicker!);
+    _setLoading(false);
+  }
+
+  Future<void> getAvailableGoogleAssets() async {
+    _setLoading(true);
+    _availableGoogleAssets = await _service.getAvailableGoogleAssets();
     _setLoading(false);
   }
 

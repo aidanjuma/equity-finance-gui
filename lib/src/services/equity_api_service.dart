@@ -16,11 +16,29 @@ import '../models/google_news_article.dart';
 class EquityApiService {
   final Client _client = Client();
 
-  static const String _baseUrl = 'http://192.168.1.225:3000';
+  static const String _baseUrl = 'http://192.168.1.240:3000';
   static const String _binanceEndpoint = '$_baseUrl/fiat/binance';
   static const String _googleFinanceEndpoint = '$_baseUrl/fiat/google';
 
   /* Google Finance */
+  Future<List<Map<String, dynamic>>> getAvailableGoogleAssets() async {
+    final Uri url = Uri.parse('$_googleFinanceEndpoint/assets');
+
+    final List<dynamic> data = await _makeGetRequest(() async {
+      Response response = await _client.get(url);
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data;
+    });
+
+    List<Map<String, dynamic>> assets = [];
+    for (int i = 0; i < data.length; i++) {
+      final item = data[i];
+      assets.add({'ticker': item['ticker'], 'market': item['market']});
+    }
+
+    return assets;
+  }
+
   Future<List<SearchResult>?> searchGoogleAssets(String query) async {
     final Uri url = Uri.parse('$_googleFinanceEndpoint/search/$query');
 

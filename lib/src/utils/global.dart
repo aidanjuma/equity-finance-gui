@@ -59,3 +59,11 @@ void updateSearchResults(
     },
   );
 }
+
+Future<void> updateAssetList(BuildContext context) async {
+  final equityProvider = Provider.of<EquityApiProvider>(context, listen: false);
+  // Only fire request if list is null.
+  if (equityProvider.availableGoogleAssets == null) {
+    await equityProvider.getAvailableGoogleAssets();
+  }
+}

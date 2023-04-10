@@ -1,4 +1,6 @@
+import 'package:equity/src/providers/equity_api_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../ui/components/navigation/custom_app_bar.dart';
 
 const TextStyle _labelStyle = TextStyle(
@@ -20,70 +22,74 @@ class PortfolioView extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(context, 3),
       extendBodyBehindAppBar: true,
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: height * 0.4,
-            color: colors.surface,
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: width * 0.05,
-              vertical: height * 0.02,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Statistics',
-                  style: TextStyle(
-                    fontFamily: 'DM Sans',
-                    fontWeight: FontWeight.w700,
-                  ),
+      body: Consumer<EquityApiProvider>(
+        builder: (context, provider, child) {
+          return Column(
+            children: <Widget>[
+              Container(
+                height: height * 0.4,
+                color: colors.surface,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: width * 0.05,
+                  vertical: height * 0.02,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: height * 0.025),
-                  padding: EdgeInsets.symmetric(vertical: height * 0.035),
-                  height: height * 0.15,
-                  decoration: BoxDecoration(
-                    color: colors.surface,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Column(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text(
+                      'Statistics',
+                      style: TextStyle(
+                        fontFamily: 'DM Sans',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: height * 0.025),
+                      padding: EdgeInsets.symmetric(vertical: height * 0.035),
+                      height: height * 0.15,
+                      decoration: BoxDecoration(
+                        color: colors.surface,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text(
-                            'Total Value',
-                            style: _labelStyle,
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                'Total Value',
+                                style: _labelStyle,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                'Daily Gain',
+                                style: _labelStyle,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                'Quantity',
+                                style: _labelStyle,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            'Daily Gain',
-                            style: _labelStyle,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            'Quantity',
-                            style: _labelStyle,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        ],
+              )
+            ],
+          );
+        },
       ),
     );
   }
