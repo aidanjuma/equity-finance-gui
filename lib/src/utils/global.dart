@@ -54,7 +54,7 @@ void updateSearchResults(
           Provider.of<EquityApiProvider>(context, listen: false);
       // Only fire request if query is different than last time.
       if (equityProvider.latestQuery != query) {
-        await equityProvider.searchGoogleAssets(query);
+        await equityProvider.searchAssets(query);
       }
     },
   );

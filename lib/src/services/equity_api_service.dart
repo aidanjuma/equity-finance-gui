@@ -17,8 +17,32 @@ class EquityApiService {
   final Client _client = Client();
 
   static const String _baseUrl = 'http://192.168.1.240:3000';
-  static const String _binanceEndpoint = '$_baseUrl/fiat/binance';
+  static const String _binanceEndpoint = '$_baseUrl/crypto/binance';
   static const String _googleFinanceEndpoint = '$_baseUrl/fiat/google';
+
+  /* Binance */
+  Future<List<SearchResult>> searchBinanceAssets(String query) async {
+    final Uri url = Uri.parse('$_binanceEndpoint/search/$query');
+
+    final List<dynamic> results = await _makeGetRequest(() async {
+      Response response = await _client.get(url);
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      return data['results'];
+    });
+
+    if (results.isNotEmpty) {
+      List<SearchResult> assets = [];
+
+      for (int i = 0; i < results.length; i++) {
+        final result = results[i];
+        assets.add(SearchResult(provider: 'Binance', ticker: result['ticker']));
+      }
+
+      return assets;
+    }
+
+    return [];
+  }
 
   /* Google Finance */
   Future<List<Map<String, dynamic>>> getAvailableGoogleAssets() async {
@@ -39,7 +63,7 @@ class EquityApiService {
     return assets;
   }
 
-  Future<List<SearchResult>?> searchGoogleAssets(String query) async {
+  Future<List<SearchResult>> searchGoogleAssets(String query) async {
     final Uri url = Uri.parse('$_googleFinanceEndpoint/search/$query');
 
     final List<dynamic> results = await _makeGetRequest(() async {
@@ -55,6 +79,7 @@ class EquityApiService {
         final result = results[i];
         assets.add(
           SearchResult(
+            provider: 'Google Finance',
             ticker: result['ticker'],
             market: result['market'],
           ),
@@ -64,7 +89,7 @@ class EquityApiService {
       return assets;
     }
 
-    return null;
+    return [];
   }
 
   Future<MarketStories> getGoogleMarketFinanceNews() async {

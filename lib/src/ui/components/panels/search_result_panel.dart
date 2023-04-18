@@ -42,6 +42,15 @@ class SearchResultPanel extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+                Text(
+                  result.provider,
+                  style: TextStyle(
+                    fontFamily: 'DM Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
                 result.market != null
                     ? Text(
                         'Market: ${result.market!}',

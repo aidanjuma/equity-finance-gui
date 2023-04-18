@@ -65,11 +65,17 @@ class _SearchViewState extends State<SearchView> {
           ),
           Consumer<EquityApiProvider>(
             builder: (context, provider, child) {
-              if (provider.results != null) {
+              if (provider.isLoading) return const CircularProgressIndicator();
+
+              if (provider.latestQuery != '' && provider.results.isEmpty) {
+                return const Text('No results found for that query!');
+              }
+
+              if (provider.results.isNotEmpty) {
                 List<SearchResultPanel> panels = [];
 
-                for (int i = 0; i < provider.results!.length; i++) {
-                  final result = provider.results![i];
+                for (int i = 0; i < provider.results.length; i++) {
+                  final result = provider.results[i];
                   panels.add(SearchResultPanel(result: result));
                 }
 
@@ -78,6 +84,7 @@ class _SearchViewState extends State<SearchView> {
                   panels: panels,
                 );
               }
+
               return const SizedBox.shrink();
             },
           ),

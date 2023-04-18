@@ -17,8 +17,8 @@ class EquityApiProvider extends ChangeNotifier {
   /* Search */
   String _latestQuery = '';
   String get latestQuery => _latestQuery;
-  List<SearchResult>? _results;
-  List<SearchResult>? get results => _results;
+  List<SearchResult> _results = [];
+  List<SearchResult> get results => _results;
 
   /* Asset Page */
   String? _selectedAssetTicker;
@@ -31,13 +31,15 @@ class EquityApiProvider extends ChangeNotifier {
   List<Map<String, dynamic>>? get availableGoogleAssets =>
       _availableGoogleAssets;
 
-  Future<void> searchGoogleAssets(String query) async {
+  Future<void> searchAssets(String query) async {
     _setLoading(true);
 
     // Perform search, save results & update latest query.
-    final List<SearchResult>? results =
+    final List<SearchResult> googleResults =
         await _service.searchGoogleAssets(query);
-    _results = results;
+    final List<SearchResult> binanceResults =
+        await _service.searchBinanceAssets(query);
+    _results = [...googleResults, ...binanceResults];
     _latestQuery = query;
 
     _setLoading(false);
