@@ -19,4 +19,8 @@ enum AssetType {
 
   @HiveField(5)
   Cryptocurrency,
+
+  // When adding to data storage, the type is unknown by default.
+  @HiveField(6)
+  Unknown,
 }

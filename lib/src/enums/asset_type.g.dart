@@ -23,6 +23,8 @@ class AssetTypeAdapter extends TypeAdapter<AssetType> {
         return AssetType.Currency;
       case 5:
         return AssetType.Cryptocurrency;
+      case 6:
+        return AssetType.Unknown;
       default:
         return AssetType.Stock;
     }
@@ -45,6 +47,9 @@ class AssetTypeAdapter extends TypeAdapter<AssetType> {
         break;
       case AssetType.Cryptocurrency:
         writer.writeByte(5);
+        break;
+      case AssetType.Unknown:
+        writer.writeByte(6);
         break;
     }
   }

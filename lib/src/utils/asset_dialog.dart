@@ -1,6 +1,9 @@
+import 'package:equity/src/utils/global.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import '../models/asset.dart';
 import '../mixins/input_validation.dart';
 import '../providers/equity_api_provider.dart';
 
@@ -97,11 +100,15 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
             child: const Text('Confirm'),
-            onPressed: () => _writeAssetDataToStorage(
-              _assetInput.text,
-              _quantityInput.text,
-              _priceInput.text,
-            ),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                _writeAssetDataToStorage(
+                  _assetInput.text,
+                  int.parse(_quantityInput.text),
+                  double.parse(_priceInput.text),
+                );
+              }
+            },
           ),
         ],
       ),
@@ -109,10 +116,9 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
   }
 
   void _writeAssetDataToStorage(
-      String assetId, String quantityPurchased, String pricePerUnit) {
-    if (_formKey.currentState!.validate()) {
-      Navigator.of(context).pop();
-    }
+      String assetId, int quantityPurchased, double pricePerUnit) {
+    saveAsset(assetId, quantityPurchased, pricePerUnit);
+    Navigator.of(context).pop();
   }
 }
 

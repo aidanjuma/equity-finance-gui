@@ -1,12 +1,29 @@
+import 'package:equity/src/enums/asset_type.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+import 'debouncer.dart';
+import '../models/asset.dart';
 import '../models/settings.dart';
 import '../models/google_news_article.dart';
 import '../providers/equity_api_provider.dart';
 import '../ui/components/panels/news_article_panel.dart';
 
-import 'debouncer.dart';
+Future<void> saveAsset(
+    String assetId, int quantityPurchased, double pricePerUnit) async {
+  Box<Asset> assetsBox = Hive.box('Asset');
+  await assetsBox.add(
+    Asset(
+      type: AssetType.Unknown,
+      ticker: assetId,
+      quantity: quantityPurchased,
+      purchasePricePerUnit: pricePerUnit,
+      valueAtPurchaseTime: quantityPurchased * pricePerUnit,
+      // Only Google Finance assets contain ':', so use this for validation for now.
+      providerName: assetId.contains(':') ? 'Google Finance' : 'Binance',
+    ),
+  );
+}
 
 Future resetSettings(bool dataDeletionRequested) async {
   Box<Settings> settingsBox = Hive.box('Settings');
