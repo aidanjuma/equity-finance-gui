@@ -29,6 +29,7 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
             return Form(
               key: _formKey,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
