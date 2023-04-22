@@ -19,41 +19,56 @@ class GoogleAssetAdapter extends TypeAdapter<GoogleAsset> {
     return GoogleAsset(
       type: fields[0] as AssetType,
       ticker: fields[1] as String,
-      market: fields[2] as Market?,
-      marketCurrency: fields[3] as Currency?,
-      label: fields[4] as String?,
-      currentPrice: fields[5] as num?,
-      dailyPriceDelta: fields[6] as num?,
-      preMarketPrice: fields[7] as num?,
-      marketSummary: fields[8] as MarketSummary?,
-      description: fields[9] as String?,
-    );
+      market: fields[7] as Market?,
+      marketCurrency: fields[8] as Currency?,
+      label: fields[9] as String?,
+      currentPrice: fields[10] as num?,
+      dailyPriceDelta: fields[11] as num?,
+      preMarketPrice: fields[12] as num?,
+      marketSummary: fields[13] as MarketSummary?,
+      description: fields[14] as String?,
+    )
+      ..purchasePricePerUnit = fields[2] as double?
+      ..quantity = fields[3] as int?
+      ..valueAtPurchaseTime = fields[4] as double?
+      ..lastKnownTotalValue = fields[5] as double?
+      ..providerName = fields[6] as String?;
   }
 
   @override
   void write(BinaryWriter writer, GoogleAsset obj) {
     writer
-      ..writeByte(10)
-      ..writeByte(2)
-      ..write(obj.market)
-      ..writeByte(3)
-      ..write(obj.marketCurrency)
-      ..writeByte(4)
-      ..write(obj.label)
-      ..writeByte(5)
-      ..write(obj.currentPrice)
-      ..writeByte(6)
-      ..write(obj.dailyPriceDelta)
+      ..writeByte(15)
       ..writeByte(7)
-      ..write(obj.preMarketPrice)
+      ..write(obj.market)
       ..writeByte(8)
-      ..write(obj.marketSummary)
+      ..write(obj.marketCurrency)
       ..writeByte(9)
+      ..write(obj.label)
+      ..writeByte(10)
+      ..write(obj.currentPrice)
+      ..writeByte(11)
+      ..write(obj.dailyPriceDelta)
+      ..writeByte(12)
+      ..write(obj.preMarketPrice)
+      ..writeByte(13)
+      ..write(obj.marketSummary)
+      ..writeByte(14)
       ..write(obj.description)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
-      ..write(obj.ticker);
+      ..write(obj.ticker)
+      ..writeByte(2)
+      ..write(obj.purchasePricePerUnit)
+      ..writeByte(3)
+      ..write(obj.quantity)
+      ..writeByte(4)
+      ..write(obj.valueAtPurchaseTime)
+      ..writeByte(5)
+      ..write(obj.lastKnownTotalValue)
+      ..writeByte(6)
+      ..write(obj.providerName);
   }
 
   @override

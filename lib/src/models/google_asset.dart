@@ -10,32 +10,29 @@ part 'google_asset.g.dart';
 
 @HiveType(typeId: 1)
 class GoogleAsset extends Asset {
-  @HiveField(2)
+  @HiveField(7)
   final Market? market;
 
-  @HiveField(3)
+  @HiveField(8)
   final Currency? marketCurrency;
 
-  @HiveField(4)
+  @HiveField(9)
   final String? label;
 
-  @HiveField(5)
+  @HiveField(10)
   final num? currentPrice;
 
-  @HiveField(6)
+  @HiveField(11)
   final num? dailyPriceDelta;
 
-  @HiveField(7)
+  @HiveField(12)
   final num? preMarketPrice;
 
-  @HiveField(8)
+  @HiveField(13)
   final MarketSummary? marketSummary;
 
-  @HiveField(9)
+  @HiveField(14)
   final String? description;
-
-  @HiveField(10)
-  final int? quantity;
 
   final List<GoogleNewsArticle>? news;
 
@@ -51,6 +48,5 @@ class GoogleAsset extends Asset {
     this.marketSummary,
     this.description,
     this.news,
-    this.quantity,
   });
 }

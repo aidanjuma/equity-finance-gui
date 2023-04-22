@@ -1,6 +1,9 @@
 import 'package:hive/hive.dart';
+
 import 'price_range.dart';
 import '../enums/market.dart';
+
+part 'market_summary.g.dart';
 
 @HiveType(typeId: 2)
 class MarketSummary {

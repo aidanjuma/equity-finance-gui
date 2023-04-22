@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names
 import 'package:hive/hive.dart';
 
+part 'asset_type.g.dart';
+
 @HiveType(typeId: 8)
 enum AssetType {
   @HiveField(1)

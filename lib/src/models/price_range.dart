@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 
+part 'price_range.g.dart';
+
 @HiveType(typeId: 3)
 class PriceRange {
   @HiveField(0)
