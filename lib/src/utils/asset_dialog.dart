@@ -53,6 +53,13 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: TextFormField(
                       controller: _quantityInput,
+                      validator: (value) {
+                        try {
+                          int.parse(_quantityInput.text);
+                        } on FormatException catch (_) {
+                          return 'Please enter a valid integer.';
+                        }
+                      },
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         label: Text('Quantity'),
@@ -64,6 +71,13 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: TextFormField(
                       controller: _priceInput,
+                      validator: (value) {
+                        try {
+                          double.parse(_priceInput.text);
+                        } on FormatException catch (_) {
+                          return 'Please enter a valid price.';
+                        }
+                      },
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         label: Text('Price Per Unit'),
@@ -84,8 +98,8 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
             child: const Text('Confirm'),
             onPressed: () => _writeAssetDataToStorage(
               _assetInput.text,
-              int.parse(_quantityInput.text),
-              num.parse(_priceInput.text),
+              _quantityInput.text,
+              _priceInput.text,
             ),
           ),
         ],
@@ -94,7 +108,7 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
   }
 
   void _writeAssetDataToStorage(
-      String assetId, int quantityPurchased, num pricePerUnit) {
+      String assetId, String quantityPurchased, String pricePerUnit) {
     if (_formKey.currentState!.validate()) {
       Navigator.of(context).pop();
     }
