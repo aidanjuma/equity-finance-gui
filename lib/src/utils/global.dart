@@ -12,13 +12,17 @@ import '../ui/components/panels/news_article_panel.dart';
 Future<void> saveAsset(
     String assetId, int quantityPurchased, double pricePerUnit) async {
   Box<Asset> assetsBox = Hive.box('Asset');
-  await assetsBox.add(
+
+  final double value = quantityPurchased * pricePerUnit;
+  await assetsBox.put(
+    assetId,
     Asset(
       type: AssetType.Unknown,
       ticker: assetId,
       quantity: quantityPurchased,
       purchasePricePerUnit: pricePerUnit,
-      valueAtPurchaseTime: quantityPurchased * pricePerUnit,
+      valueAtPurchaseTime: value,
+      lastKnownTotalValue: value,
       // Only Google Finance assets contain ':', so use this for validation for now.
       providerName: assetId.contains(':') ? 'Google Finance' : 'Binance',
     ),

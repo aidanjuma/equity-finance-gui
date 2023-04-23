@@ -40,7 +40,7 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
                       controller: _assetInput,
                       validator: (assetId) {
                         if (isAssetIdValid(
-                              assetId!,
+                              assetId!.toUpperCase(),
                               provider.availableGoogleAssets!,
                             ) ==
                             true) return null;
@@ -103,7 +103,7 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _writeAssetDataToStorage(
-                  _assetInput.text,
+                  _assetInput.text.toUpperCase(),
                   int.parse(_quantityInput.text),
                   double.parse(_priceInput.text),
                 );
