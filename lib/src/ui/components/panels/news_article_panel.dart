@@ -40,7 +40,7 @@ class NewsArticlePanel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              width: width * 0.305,
+              width: width * 0.285,
               height: height * 0.1,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(

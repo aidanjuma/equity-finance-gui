@@ -58,9 +58,11 @@ class _BriefingViewState extends State<BriefingView> {
 
           return Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(
-              vertical: height * 0.1,
-              horizontal: width * 0.065,
+            margin: EdgeInsets.only(
+              top: height * 0.1,
+              bottom: height * 0.05,
+              left: width * 0.065,
+              right: width * 0.065,
             ),
             child: Column(
               children: <Widget>[
@@ -109,13 +111,15 @@ class _BriefingViewState extends State<BriefingView> {
                       ),
                       provider.selectedAssetData?.news != null
                           ? Container(
+                              height: height * 0.5,
                               padding: EdgeInsets.symmetric(
                                 vertical: height * 0.015,
                               ),
                               child: DefaultSlider(
                                 direction: Axis.vertical,
                                 panels: parseNewsArticles(
-                                    provider.selectedAssetData!.news!),
+                                  provider.selectedAssetData!.news!,
+                                ),
                               ),
                             )
                           : const Text('No news available.'),
