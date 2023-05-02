@@ -6,9 +6,9 @@ import '../../../utils/asset_dialog.dart';
 import '../../../router/navigator_wrapper.dart';
 
 const TextStyle _titleStyle = TextStyle(
+  fontFamily: 'DM Sans',
   fontSize: 32,
   fontWeight: FontWeight.w700,
-  fontFamily: 'DM Sans',
 );
 
 PreferredSize customAppBar(BuildContext context, int type) {

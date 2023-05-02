@@ -18,8 +18,8 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     };
     return Settings(
       theme: fields[0] as Appearance,
-      defaultCurrency: fields[1] as Currency,
-      briefingPageAssetId: fields[2] as String,
+      briefingPageAssetId: fields[1] as String,
+      whenBriefingLastDisplayed: fields[2] as String,
     );
   }
 
@@ -30,9 +30,9 @@ class SettingsAdapter extends TypeAdapter<Settings> {
       ..writeByte(0)
       ..write(obj.theme)
       ..writeByte(1)
-      ..write(obj.defaultCurrency)
+      ..write(obj.briefingPageAssetId)
       ..writeByte(2)
-      ..write(obj.briefingPageAssetId);
+      ..write(obj.whenBriefingLastDisplayed);
   }
 
   @override

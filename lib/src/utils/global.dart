@@ -5,9 +5,43 @@ import 'package:provider/provider.dart';
 import 'debouncer.dart';
 import '../models/asset.dart';
 import '../models/settings.dart';
+import '../enums/appearance.dart';
 import '../models/google_news_article.dart';
 import '../providers/equity_api_provider.dart';
 import '../ui/components/panels/news_article_panel.dart';
+
+const TextStyle _timeOfDayStyle = TextStyle(
+  fontFamily: 'Lexend',
+  fontSize: 40,
+  fontWeight: FontWeight.w700,
+);
+
+Text timeOfDayMessage() {
+  final int hour = DateTime.now().hour;
+
+  if (hour >= 4 && hour <= 11) {
+    return const Text('Good Morning!', style: _timeOfDayStyle);
+  } else if (hour >= 12 && hour <= 15) {
+    return const Text('Good Afternoon.', style: _timeOfDayStyle);
+  } else if (hour >= 16 && hour <= 19) {
+    return const Text('Good Evening.', style: _timeOfDayStyle);
+  }
+
+  return const Text('Good Night!', style: _timeOfDayStyle);
+}
+
+// Used to handle ISO8601 time strings; allows parsing to DateTime object.
+String restrictFractionalSeconds(String dateTime) =>
+    dateTime.replaceFirstMapped(
+      RegExp("(\\.\\d{6})\\d+"),
+      (m) => m[1].toString(),
+    );
+
+Map<Appearance, ThemeMode> themes = {
+  Appearance.light: ThemeMode.light,
+  Appearance.dark: ThemeMode.dark,
+  Appearance.system: ThemeMode.system,
+};
 
 Future<void> saveAsset(
     String assetId, int quantityPurchased, double pricePerUnit) async {
@@ -42,8 +76,10 @@ Future resetSettings(bool dataDeletionRequested) async {
 }
 
 Future deleteAllStoredData() async {
+  Box<Asset> assetsBox = Hive.box('Asset');
+
   await resetSettings(true);
-  // TODO: Delete all other data; at this point, it is not populated yet.
+  await assetsBox.clear();
 }
 
 List<NewsArticlePanel> parseNewsArticles(List<GoogleNewsArticle> articles) {

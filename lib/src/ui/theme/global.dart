@@ -4,6 +4,7 @@ class Themes {
   // Consistent Colors:
   static const primaryColor = Color(0xff316dca);
   static const errorColor = Color(0xb3ff6961);
+  static const positiveColor = Color(0xff90e889);
   static const pureWhite = Color(0xffffffff);
 
   // Other Colors:
@@ -40,7 +41,7 @@ class Themes {
       onError: pureWhite,
       background: fff6f8fa,
       onBackground: ffd8dee4,
-      surface: ff24292f,
+      surface: ffd8dee4,
       onSurface: ff52565a,
     ),
   );

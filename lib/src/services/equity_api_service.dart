@@ -26,6 +26,7 @@ class EquityApiService {
 
     final List<dynamic> results = await _makeGetRequest(() async {
       Response response = await _client.get(url);
+      if (response.statusCode != 200) return [];
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       return data['results'];
     });
@@ -50,6 +51,7 @@ class EquityApiService {
 
     final List<dynamic> data = await _makeGetRequest(() async {
       Response response = await _client.get(url);
+      if (response.statusCode != 200) return [];
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;
     });

@@ -15,6 +15,7 @@ class SearchResultPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final colors = Theme.of(context).colorScheme;
 
     return GestureDetector(
       onTap: () {
@@ -48,7 +49,7 @@ class SearchResultPanel extends StatelessWidget {
                     fontFamily: 'DM Sans',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: colors.onSurface,
                   ),
                 ),
                 result.market != null
@@ -58,7 +59,7 @@ class SearchResultPanel extends StatelessWidget {
                           fontFamily: 'DM Sans',
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: colors.onSurface,
                         ),
                       )
                     : const SizedBox.shrink(),

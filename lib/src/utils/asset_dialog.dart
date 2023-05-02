@@ -1,9 +1,7 @@
-import 'package:equity/src/utils/global.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import '../models/asset.dart';
+import '../utils/global.dart';
 import '../mixins/input_validation.dart';
 import '../providers/equity_api_provider.dart';
 
@@ -63,6 +61,7 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
                         } on FormatException catch (_) {
                           return 'Please enter a valid integer.';
                         }
+                        return null;
                       },
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
@@ -81,6 +80,7 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
                         } on FormatException catch (_) {
                           return 'Please enter a valid price.';
                         }
+                        return null;
                       },
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
