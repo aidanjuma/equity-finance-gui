@@ -57,7 +57,10 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
                       controller: _quantityInput,
                       validator: (value) {
                         try {
-                          int.parse(_quantityInput.text);
+                          final int quantity = int.parse(_quantityInput.text);
+                          if (quantity <= 0) {
+                            return 'Quantity must be greater than 0.';
+                          }
                         } on FormatException catch (_) {
                           return 'Please enter a valid integer.';
                         }
@@ -76,7 +79,10 @@ class _AddAssetDialogBoxState extends State<AddAssetDialogBox>
                       controller: _priceInput,
                       validator: (value) {
                         try {
-                          double.parse(_priceInput.text);
+                          final double price = double.parse(_priceInput.text);
+                          if (price <= 0) {
+                            return 'Price must be greater than 0.';
+                          }
                         } on FormatException catch (_) {
                           return 'Please enter a valid price.';
                         }
