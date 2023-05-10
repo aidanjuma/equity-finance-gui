@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import '../utils/global.dart';
-import '../mixins/input_validation.dart';
-import '../providers/equity_api_provider.dart';
+import '../../../utils/global.dart';
+import '../../../mixins/input_validation.dart';
+import '../../../providers/equity_api_provider.dart';
 
 class AddAssetDialogBox extends StatefulWidget {
   const AddAssetDialogBox({super.key});

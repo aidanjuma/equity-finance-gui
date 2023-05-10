@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 // Local
 import '../../utils/global.dart';
+import '../../models/settings.dart';
 import '../../enums/appearance.dart';
 import '../../ui/components/navigation/custom_app_bar.dart';
+import '../../ui/components/dialog/briefing_asset_dialog.dart';
 import '../../ui/components/settings/theme_color_indicator.dart';
 
-class SettingsView extends StatelessWidget {
+const TextStyle _commonStyle = TextStyle(
+  fontFamily: 'Lexend',
+  fontSize: 18,
+);
+
+class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
+
+  @override
+  State<SettingsView> createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<SettingsView> {
+  final Box<Settings> settingsBox = Hive.box('Settings');
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +72,26 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            /* Briefing Page Asset Selector */
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 32),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const Text(
+                    'Briefing Page Asset',
+                    style: _commonStyle,
+                  ),
+                  GestureDetector(
+                    onTap: () => modifyBriefingAssetDialogBuilder(context),
+                    child: Text(
+                      settingsBox.get('storedSettings')!.briefingPageAssetId,
+                      style: _commonStyle,
+                    ),
+                  )
+                ],
+              ),
             ),
             GestureDetector(
               onTap: () => _resetDataDialogBuilder(context),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import '../../../utils/global.dart';
 import '../../../router/routes.dart';
-import '../../../utils/asset_dialog.dart';
+import '../dialog/asset_dialog.dart';
 import '../../../router/navigator_wrapper.dart';
 
 const TextStyle _titleStyle = TextStyle(
@@ -57,8 +57,10 @@ PreferredSize customAppBar(BuildContext context, int type) {
               const Padding(padding: EdgeInsets.symmetric(horizontal: 8)),
               type != 2
                   ? GestureDetector(
-                      onTap: () =>
-                          NavigatorWrapper.push(context, Routes.settings),
+                      onTap: () {
+                        updateAssetList(context);
+                        NavigatorWrapper.push(context, Routes.settings);
+                      },
                       child: const Icon(
                         EvaIcons.settingsOutline,
                         size: 28,

@@ -43,6 +43,14 @@ Map<Appearance, ThemeMode> themes = {
   Appearance.system: ThemeMode.system,
 };
 
+Future<void> updateBriefingPageAsset(String assetId) async {
+  Box<Settings> settingsBox = Hive.box<Settings>('Settings');
+  Settings storedSettings =
+      Hive.box<Settings>('Settings').get('storedSettings')!;
+  storedSettings.briefingPageAssetId = assetId;
+  settingsBox.put(storedSettings.key, storedSettings);
+}
+
 Future<void> saveAsset(
     String assetId, int quantityPurchased, double pricePerUnit) async {
   Box<Asset> assetsBox = Hive.box('Asset');
